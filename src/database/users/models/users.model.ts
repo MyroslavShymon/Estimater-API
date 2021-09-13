@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { Project } from 'src/database/projects/models';
 
 interface UserCreationAttrs {
   name: string;
@@ -45,7 +46,7 @@ export class User extends Model<User, UserCreationAttrs> {
   email: string;
 
   @ApiProperty({
-    example: 'dfdfhsfghst',
+    example: 'qwerty',
     description: 'Password of user',
   })
   @Column({
@@ -53,4 +54,7 @@ export class User extends Model<User, UserCreationAttrs> {
     allowNull: false,
   })
   password: string;
+
+  @HasMany(() => Project)
+  projects: Project[];
 }
